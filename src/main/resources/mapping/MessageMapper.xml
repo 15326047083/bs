@@ -90,4 +90,36 @@
       reply_id = #{replyId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="getMessageList" resultType="com.leiyuan.bs.vo.MessageVo">
+    SELECT m.id id,
+    m.info info,
+    m.user_id userId,
+    m.time time,
+    m.reply_id repltId,
+    u.`name` name,
+    u.email email,
+    u.phone phone,
+    u.`password` password,
+    u.age age,
+    u.sex sex
+    FROM message as m,`user` as u
+    where u.id=m.user_id and m.reply_id is null
+
+  </select>
+  <select id="getReplyList" parameterType="java.lang.Integer"  resultType="com.leiyuan.bs.vo.ReplyVo">
+      SELECT m.id id,
+      m.info info,
+      m.user_id userId,
+      m.time time,
+      m.reply_id repltId,
+      u.`name` name,
+      u.email email,
+      u.phone phone,
+      u.`password` password,
+      u.age age,
+      u.sex sex
+      FROM message as m,`user` as u
+      where u.id=m.user_id and m.reply_id=#{id,jdbcType=INTEGER}
+  </select>
 </mapper>

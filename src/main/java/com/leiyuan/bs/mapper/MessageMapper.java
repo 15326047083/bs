@@ -1,6 +1,10 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Message;
+import com.leiyuan.bs.vo.MessageVo;
+import com.leiyuan.bs.vo.ReplyVo;
+
+import java.util.List;
 
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,8 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+
+    List<MessageVo> getMessageList();
+    List<ReplyVo> getReplyList(Integer id);
+
 }
