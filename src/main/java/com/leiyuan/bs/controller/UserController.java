@@ -2,6 +2,7 @@ package com.leiyuan.bs.controller;
 
 import com.leiyuan.bs.entity.User;
 import com.leiyuan.bs.service.UserService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
     @Autowired
     private UserService userService; // 自动注入UserService
+
+    /**
+     * 登出方法
+     *
+     * @param request 需要获取session中的用户信息
+     * @return 页面跳转（重定向至登陆页面）
+     */
+    @RequestMapping("/loginOut")
+    public String loginOut(HttpServletRequest request) {
+        return userService.loginOut(request);
+    }
+
+    /**
+     * 跳转
+     *
+     * @return 用户登陆页面
+     */
+    @RequestMapping("/toLogin")
+    public String toLogin() {
+        return "user/login";
+    }
+
+    /**
+     * 用户登陆的方法
+     *
+     * @param user 用户信息包含用户名以及密码
+     * @return 返回成功与否
+     */
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ResponseBody
+    public String login(User user, HttpServletRequest request) {
+        return userService.login(user, request);
+    }
 
     /**
      * 跳转

@@ -4,17 +4,19 @@ package com.leiyuan.bs.entity;
 public class User {
     private Integer id; // 主键
 
-    private String name; // 名字
+    private String name; // 名称
 
     private String email; // 邮箱
 
-    private String phone; // 电话
+    private String phone; // 手机
 
     private String password; // 密码
 
     private Integer age; // 年龄
 
     private String sex; // 性别
+
+    private Integer state; // 用户类型（0为应聘者，1为招聘者）
 
     @Override
     public String toString() {
@@ -26,13 +28,15 @@ public class User {
                 ", password='" + password + '\'' +
                 ", age=" + age +
                 ", sex='" + sex + '\'' +
+                ", state=" + state +
                 '}';
     }
 
     public User() {
     }
 
-    public User(Integer id, String name, String email, String phone, String password, Integer age, String sex) {
+    public User(Integer id, String name, String email, String phone, String password, Integer age, String sex,
+                Integer state) {
 
         this.id = id;
         this.name = name;
@@ -41,6 +45,7 @@ public class User {
         this.password = password;
         this.age = age;
         this.sex = sex;
+        this.state = state;
     }
 
     public Integer getId() {
@@ -97,5 +102,13 @@ public class User {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }
