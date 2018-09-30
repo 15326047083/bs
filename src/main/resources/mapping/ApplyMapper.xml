@@ -90,4 +90,34 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="queryMyApplyList" parameterType="java.lang.Integer" resultType="com.leiyuan.bs.vo.MyApplyVo">
+    SELECT
+    a.id applyId,
+    a.apply_time applyTime,
+    a.state applyState,
+    a.re_id reId,
+    r.title reTitle,
+    r.money money
+    FROM `apply` a,recruitment r
+    where a.re_id=r.id
+    and a.user_id=#{userId,jdbcType=INTEGER}
+  </select>
+  <select id="getReApplyList" parameterType="java.lang.Integer" resultType="com.leiyuan.bs.vo.ReApplyVo">
+   SELECT
+    a.id applyId,
+    a.apply_time applyTime,
+    a.state applyState,
+    a.re_id reId,
+    u.id userId,
+    u.`name` userName,
+    u.email userEmail,
+    u.phone userPhone,
+    u.`password` userPassword,
+    u.age userAge,
+    u.sex userSex
+    FROM `apply` a,user u
+    where a.user_id=u.id
+    and a.re_id=#{reId,jdbcType=INTEGER}
+  </select>
 </mapper>

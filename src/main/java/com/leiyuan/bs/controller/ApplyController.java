@@ -53,8 +53,8 @@ public class ApplyController {
      * @return 我的申请
      */
     @RequestMapping("/getMyApplyList")
-    public String getMyApplyList(Model model) {
-        model.addAttribute("myApplyList", applyService.queryMyApplyList());
+    public String getMyApplyList(Model model, HttpServletRequest request) {
+        model.addAttribute("myApplyList", applyService.queryMyApplyList(request));
         return "apply/myList";
     }
 

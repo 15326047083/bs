@@ -1,6 +1,10 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Apply;
+import com.leiyuan.bs.vo.MyApplyVo;
+import com.leiyuan.bs.vo.ReApplyVo;
+
+import java.util.List;
 
 public interface ApplyMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +18,8 @@ public interface ApplyMapper {
     int updateByPrimaryKeySelective(Apply record);
 
     int updateByPrimaryKey(Apply record);
+
+    List<MyApplyVo> queryMyApplyList(Integer userId);
+
+    List<ReApplyVo> getReApplyList(Integer reId);
 }

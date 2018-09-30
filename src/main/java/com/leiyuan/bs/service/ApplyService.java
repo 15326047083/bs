@@ -9,7 +9,7 @@ import java.util.List;
 public interface ApplyService {
     String apply(Integer reId, HttpServletRequest request);
 
-    List<MyApplyVo> queryMyApplyList();
+    List<MyApplyVo> queryMyApplyList(HttpServletRequest request);
 
     List<ReApplyVo> getReApplyList(Integer reId);
 
