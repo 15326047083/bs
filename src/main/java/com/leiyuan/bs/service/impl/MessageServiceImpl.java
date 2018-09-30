@@ -1,9 +1,11 @@
 package com.leiyuan.bs.service.impl;
 
 import com.leiyuan.bs.entity.Message;
+import com.leiyuan.bs.entity.User;
 import com.leiyuan.bs.mapper.MessageMapper;
 import com.leiyuan.bs.service.MessageService;
 import com.leiyuan.bs.vo.MessageVo;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,27 +19,22 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private MessageMapper messageMapper;
 
-    /**
-     * 新建评论
-     *
-     * @param message
-     */
     @Override
-    public void addMessage(Message message) {
+    public String addMessage(Message message, HttpServletRequest request) {
         //Session 获取 userId
-
+        User user = (User) request.getSession().getAttribute("userSession");
+        if (user == null)
+            return "error";
+        if (message.getInfo().length() > 100 || message.getInfo().length() < 10)
+            return "error";
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         message.setTime(sdf.format(new Date()));
-
+        message.setUserId(user.getId());
         messageMapper.insert(message);
+        return "success";
     }
 
-    /**
-     * 查看评论列表
-     *
-     * @return
-     */
     @Override
     public List<MessageVo> getList() {
         List<MessageVo> list = messageMapper.getMessageList();

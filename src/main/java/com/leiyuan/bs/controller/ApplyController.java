@@ -40,6 +40,7 @@ public class ApplyController {
      *                通过与当前用户的信息比对，正确则返回成功，否则返回失败
      * @return 成功与否
      */
+    @ResponseBody
     @RequestMapping("/deleteApply/{applyId}")
     public String deleteApply(@PathVariable("applyId") Integer applyId, HttpServletRequest request) {
         return applyService.deleteApply(applyId, request);
