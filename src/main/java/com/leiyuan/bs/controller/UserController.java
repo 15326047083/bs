@@ -106,8 +106,8 @@ public class UserController {
      */
     @ResponseBody
     @RequestMapping("/deleteUser/{userId}")
-    public String deleteUser(@PathVariable("userId") Integer userId) {
-        return userService.deleteUser(userId);
+    public String deleteUser(@PathVariable("userId") Integer userId, HttpServletRequest request) {
+        return userService.deleteUser(userId, request);
     }
 
     /**

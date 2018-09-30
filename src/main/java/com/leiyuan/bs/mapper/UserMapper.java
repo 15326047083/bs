@@ -1,7 +1,11 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.User;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,10 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    int countPhone(String phone);
+
+    List<User> queryAll();
+
+    User login(User user);
 }

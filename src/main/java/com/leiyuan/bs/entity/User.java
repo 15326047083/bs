@@ -16,7 +16,7 @@ public class User {
 
     private String sex; // 性别
 
-    private Integer state; // 用户类型（0为应聘者，1为招聘者）
+    private Integer state; // 用户类型（0为应聘者，1为招聘者,-1为admin）
 
     @Override
     public String toString() {

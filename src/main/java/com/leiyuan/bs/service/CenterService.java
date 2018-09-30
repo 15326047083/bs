@@ -1,11 +1,12 @@
 package com.leiyuan.bs.service;
 
 import com.leiyuan.bs.entity.Center;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 
 import java.util.List;
 
 public interface CenterService {
-    List<Center> queryAll();
+    List<Center> queryAll(Integer type);
 
     String newCenter(Center center);
 
@@ -13,5 +14,5 @@ public interface CenterService {
 
     String updateCenter(Center center);
 
-    String deleteCenter(Integer centerId);
+    String deleteCenter(Integer centerId, HttpServletRequest request);
 }

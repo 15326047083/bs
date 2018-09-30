@@ -2,6 +2,7 @@ package com.leiyuan.bs.controller;
 
 import com.leiyuan.bs.entity.Center;
 import com.leiyuan.bs.service.CenterService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,12 +31,13 @@ public class CenterController {
     /**
      * 跳转
      *
+     * @param type  分类（0为中心简介、1为法律法规）
      * @param model 向页面传递列表
      * @return 中心简介，法律法规列表
      */
-    @RequestMapping("/toCenterList")
-    public String toCenterList(Model model) {
-        model.addAttribute("centerList", centerService.queryAll());
+    @RequestMapping("/toCenterList/{type}")
+    public String toCenterList(@PathVariable("type") Integer type, Model model) {
+        model.addAttribute("centerList", centerService.queryAll(type));
         return "center/list";
     }
 
@@ -85,8 +87,8 @@ public class CenterController {
      */
     @ResponseBody
     @RequestMapping("/deleteCenter/{centerId}")
-    public String deleteCenter(@PathVariable("centerId") Integer centerId) {
-        return centerService.deleteCenter(centerId);
+    public String deleteCenter(@PathVariable("centerId") Integer centerId, HttpServletRequest request) {
+        return centerService.deleteCenter(centerId,request);
     }
 
 }

@@ -8,7 +8,7 @@ public class Center {
 
     private String info; // 内容
 
-    private Integer state; // 状态
+    private Integer state; // 状态(0为中心简介、1为法律法规)
 
     @Override
     public String toString() {

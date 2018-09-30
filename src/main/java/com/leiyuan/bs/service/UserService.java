@@ -14,7 +14,7 @@ public interface UserService {
 
     String updateUser(User user);
 
-    String deleteUser(Integer userId);
+    String deleteUser(Integer userId, HttpServletRequest request);
 
     String login(User user, HttpServletRequest request);
 

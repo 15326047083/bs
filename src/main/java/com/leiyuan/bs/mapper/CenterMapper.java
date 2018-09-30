@@ -1,7 +1,11 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Center;
+import org.springframework.stereotype.Component;
 
+import java.util.List;
+
+@Component
 public interface CenterMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -14,4 +18,6 @@ public interface CenterMapper {
     int updateByPrimaryKeySelective(Center record);
 
     int updateByPrimaryKey(Center record);
+
+    List<Center> queryAll(Integer type);
 }

@@ -36,8 +36,8 @@ public class RecruitmentController {
      */
     @ResponseBody
     @RequestMapping(value = "newRecruitment", method = RequestMethod.POST)
-    public String newRecruitment(Recruitment recruitment) {
-        return recruitmentService.newRecruitment(recruitment);
+    public String newRecruitment(Recruitment recruitment, HttpServletRequest request) {
+        return recruitmentService.newRecruitment(recruitment, request);
     }
 
     /**
@@ -61,8 +61,8 @@ public class RecruitmentController {
      */
     @ResponseBody
     @RequestMapping(value = "updateRecruitment", method = RequestMethod.POST)
-    public String updateRecruitment(Recruitment recruitment) {
-        return recruitmentService.update(recruitment);
+    public String updateRecruitment(Recruitment recruitment, HttpServletRequest request) {
+        return recruitmentService.update(recruitment, request);
     }
 
     /**
@@ -76,10 +76,10 @@ public class RecruitmentController {
      * @return 成功与否
      */
     @ResponseBody
-    @RequestMapping("/updateRecruitmentState/{recruitmentId}")
-    public String updateRecruitmentState(@PathVariable("recruitmentId") Integer recruitmentId, HttpServletRequest
+    @RequestMapping("/updateRecruitmentState/{applyId}")
+    public String updateRecruitmentState(@PathVariable("applyId") Integer applyId, HttpServletRequest
             request) {
-        return recruitmentService.updateRecruitmentState(recruitmentId, request);
+        return recruitmentService.updateRecruitmentState(applyId, request);
     }
 
     /**
@@ -90,7 +90,7 @@ public class RecruitmentController {
      */
     @ResponseBody
     @RequestMapping("/deleteRecruitment/{recruitmentId}")
-    public String deleteRecruitment(@PathVariable("recruitmentId") Integer recruitmentId) {
-        return recruitmentService.deleteRecruitment(recruitmentId);
+    public String deleteRecruitment(@PathVariable("recruitmentId") Integer recruitmentId, HttpServletRequest request) {
+        return recruitmentService.deleteRecruitment(recruitmentId, request);
     }
 }

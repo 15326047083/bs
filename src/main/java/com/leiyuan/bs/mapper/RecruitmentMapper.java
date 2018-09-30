@@ -1,7 +1,9 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Recruitment;
+import org.springframework.stereotype.Component;
 
+@Component
 public interface RecruitmentMapper {
     int deleteByPrimaryKey(Integer id);
 
