@@ -20,7 +20,6 @@ public class MessageTest {
         message.setInfo("yes");
         message.setUserId(1);
         message.setReplyId(1);
-        messageService.addMessage(message);
     }
 
     @Test

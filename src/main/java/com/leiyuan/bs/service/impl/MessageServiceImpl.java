@@ -25,7 +25,7 @@ public class MessageServiceImpl implements MessageService {
         User user = (User) request.getSession().getAttribute("userSession");
         if (user == null)
             return "error";
-        if (message.getInfo().length() > 100 || message.getInfo().length() < 10)
+        if (message.getInfo().length() > 1000 || message.getInfo().length() < 10)
             return "error";
         //获取当前时间
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -41,7 +41,6 @@ public class MessageServiceImpl implements MessageService {
         // System.out.println(list);
         for (MessageVo v : list) {
             v.setReplyVoList(messageMapper.getReplyList(v.getId()));
-            System.out.println(v.getReplyVoList());
         }
         return list;
     }

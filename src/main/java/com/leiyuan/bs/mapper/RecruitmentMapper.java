@@ -1,7 +1,10 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Recruitment;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public interface RecruitmentMapper {
@@ -16,4 +19,8 @@ public interface RecruitmentMapper {
     int updateByPrimaryKeySelective(Recruitment record);
 
     int updateByPrimaryKey(Recruitment record);
+
+    List<Recruitment> queryAll();
+
+    Integer countByUserIdAndReId(@Param("reId") Integer reId, @Param("id") Integer id);
 }

@@ -31,6 +31,8 @@ public class ApplyServiceImpl implements ApplyService {
             return "error";
         else if (recruitmentMapper.selectByPrimaryKey(reId) == null)
             return "error";
+        else if (recruitmentMapper.countByUserIdAndReId(reId, user.getId()) > 0)
+            return "error";
         Apply apply = new Apply();
         apply.setState(0);
         //获取当前时间
@@ -39,6 +41,7 @@ public class ApplyServiceImpl implements ApplyService {
         apply.setReId(reId);
         apply.setUserId(user.getId());
         applyMapper.insert(apply);
+        // TODO 申请成功后根据岗位ID获取岗位信息，查询岗位发布者给发布者发送电子邮件提醒
         return "success";
     }
 

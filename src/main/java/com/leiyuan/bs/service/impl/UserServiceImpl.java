@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -46,6 +48,10 @@ public class UserServiceImpl implements UserService {
      * @return true、false
      */
     private boolean verifyUserInfo(User user) {
+        String check = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$";
+        Pattern regex = Pattern.compile(check);
+        Matcher matcher = regex.matcher(user.getEmail());
+        boolean isMatched = matcher.matches();
         if ("".equals(user.getName()))
             return true;
         else if ("".equals(user.getPassword()) || user.getPassword().length() < 6)
@@ -55,6 +61,8 @@ public class UserServiceImpl implements UserService {
         else if (user.getAge() == null || user.getAge() < 0 || user.getAge() > 50)
             return true;
         else if (userMapper.countPhone(user.getPhone()) != 0)
+            return true;
+        else if (!isMatched)
             return true;
         return false;
     }

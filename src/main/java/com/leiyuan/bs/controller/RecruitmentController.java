@@ -19,6 +19,18 @@ public class RecruitmentController {
     private RecruitmentService recruitmentService; // 自动注入RecruitmentService
 
     /**
+     * 获取岗位列表
+     *
+     * @param model 向页面传递岗位列表
+     * @return 跳转页面
+     */
+    @RequestMapping("/toList")
+    public String toList(Model model) {
+        model.addAttribute("list", recruitmentService.queryAll());
+        return "recruitment/list";
+    }
+
+    /**
      * 跳转
      *
      * @return 新增页面
@@ -37,6 +49,7 @@ public class RecruitmentController {
     @ResponseBody
     @RequestMapping(value = "newRecruitment", method = RequestMethod.POST)
     public String newRecruitment(Recruitment recruitment, HttpServletRequest request) {
+        System.out.println(recruitment.toString());
         return recruitmentService.newRecruitment(recruitment, request);
     }
 
@@ -70,16 +83,15 @@ public class RecruitmentController {
      * 如果发布者确认了应聘信息
      * 则更在应聘信息的状态为1（应聘成功 ）
      *
-     * @param recruitmentId 应聘信息ID
-     * @param request       传递用户session
-     *                      判断当前登陆用户是否为应聘信息发布者，匹配则成功，否则失败
+     * @param request 传递用户session
+     *                判断当前登陆用户是否为应聘信息发布者，匹配则成功，否则失败
      * @return 成功与否
      */
     @ResponseBody
-    @RequestMapping("/updateRecruitmentState/{applyId}")
-    public String updateRecruitmentState(@PathVariable("applyId") Integer applyId, HttpServletRequest
-            request) {
-        return recruitmentService.updateRecruitmentState(applyId, request);
+    @RequestMapping("/updateRecruitmentState/{applyId}/{state}")
+    public String updateRecruitmentState(@PathVariable("applyId") Integer applyId, @PathVariable("state") Integer
+            state, HttpServletRequest request) {
+        return recruitmentService.updateRecruitmentState(applyId, request, state);
     }
 
     /**

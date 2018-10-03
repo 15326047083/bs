@@ -10,6 +10,8 @@ import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RecruitmentServiceImpl implements RecruitmentService {
     @Autowired
@@ -28,6 +30,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitment.setUserId(userSession.getId());
         recruitment.setState(0);
         recruitmentMapper.insert(recruitment);
+        // TODO 岗位发布后，随机从user表中获取5名用户推荐岗位
         return "success";
     }
 
@@ -59,7 +62,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
             return true;
         else if (recruitment.getMoney() < 0)
             return true;
-        else if (recruitment.getInfo().length() < 20 || recruitment.getInfo().length() > 150)
+        else if (recruitment.getInfo().length() < 20 || recruitment.getInfo().length() > 2000)
             return true;
         else if (recruitment.getPlaceState() != 0 && recruitment.getPlaceState() != 1)
             return true;
@@ -67,7 +70,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     }
 
     @Override
-    public String updateRecruitmentState(Integer applyId, HttpServletRequest request) {
+    public String updateRecruitmentState(Integer applyId, HttpServletRequest request, Integer state) {
         User userSession = (User) request.getSession().getAttribute("userSession");
         if (userSession == null)
             return "error";
@@ -79,9 +82,13 @@ public class RecruitmentServiceImpl implements RecruitmentService {
             return "error";
         if (!recruitment.getUserId().equals(userSession.getId()))
             return "error";
-        recruitment.setState(1);
+        if (state == 1) {
+            recruitment.setState(1);
+            apply.setState(1);
+        } else if (state == 2) {
+            apply.setState(2);
+        }
         recruitmentMapper.updateByPrimaryKeySelective(recruitment);
-        apply.setState(1);
         applyMapper.updateByPrimaryKey(apply);
         return "success";
     }
@@ -98,5 +105,10 @@ public class RecruitmentServiceImpl implements RecruitmentService {
             return "error";
         recruitmentMapper.deleteByPrimaryKey(recruitmentId);
         return "success";
+    }
+
+    @Override
+    public List<Recruitment> queryAll() {
+        return recruitmentMapper.queryAll();
     }
 }

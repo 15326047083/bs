@@ -2,6 +2,7 @@ package com.leiyuan.bs;
 
 import com.leiyuan.bs.entity.Center;
 import com.leiyuan.bs.entity.User;
+import com.leiyuan.bs.mapper.RecruitmentMapper;
 import com.leiyuan.bs.service.CenterService;
 import com.leiyuan.bs.service.UserService;
 import org.junit.Test;
@@ -17,6 +18,8 @@ public class leiyuanTest {
     private UserService userService;
     @Autowired
     private CenterService centerService;
+    @Autowired
+    private RecruitmentMapper recruitmentMapper;
 
     @Test
     public void testNewUser() {
@@ -64,5 +67,10 @@ public class leiyuanTest {
     @Test
     public void testDeleteCenter() {
         centerService.deleteCenter(2, null);
+    }
+
+    @Test
+    public void testCount() {
+        System.out.println(recruitmentMapper.countByUserIdAndReId(1, 1));
     }
 }
