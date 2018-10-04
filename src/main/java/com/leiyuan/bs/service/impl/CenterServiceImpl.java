@@ -18,12 +18,17 @@ public class CenterServiceImpl implements CenterService {
     @Override
     public List<Center> queryAll(Integer type) {
         if (type != 0 && type != 1)
-            return null;
+            return centerMapper.getAllList();
         return centerMapper.queryAll(type);
     }
 
     @Override
-    public String newCenter(Center center) {
+    public String newCenter(Center center, HttpServletRequest request) {
+        User userSession = (User) request.getSession().getAttribute("userSession");
+        if (userSession == null)
+            return "error";
+        else if (userSession.getState() != -1)
+            return "error";
         if (verifyCenter(center)) return "error";
         centerMapper.insert(center);
         return "success";
@@ -37,7 +42,12 @@ public class CenterServiceImpl implements CenterService {
     }
 
     @Override
-    public String updateCenter(Center center) {
+    public String updateCenter(Center center, HttpServletRequest request) {
+        User userSession = (User) request.getSession().getAttribute("userSession");
+        if (userSession == null)
+            return "error";
+        else if (userSession.getState() != -1)
+            return "error";
         if (verifyCenter(center))
             return "error";
         else if (center.getId() == null)
@@ -55,7 +65,7 @@ public class CenterServiceImpl implements CenterService {
      * @return true、false
      */
     private boolean verifyCenter(Center center) {
-        if (center.getInfo().length() > 100 || center.getInfo().length() < 5)
+        if (center.getInfo().length() > 2000 || center.getInfo().length() < 5)
             return true;
         else if (center.getState() != 0 && center.getState() != 1)
             return true;

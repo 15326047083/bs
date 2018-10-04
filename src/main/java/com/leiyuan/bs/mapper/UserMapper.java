@@ -24,4 +24,6 @@ public interface UserMapper {
     List<User> queryAll();
 
     User login(User user);
+
+    List<User> getFiveUser();
 }

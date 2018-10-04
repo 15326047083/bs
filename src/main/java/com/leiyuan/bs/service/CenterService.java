@@ -8,11 +8,11 @@ import java.util.List;
 public interface CenterService {
     List<Center> queryAll(Integer type);
 
-    String newCenter(Center center);
+    String newCenter(Center center, HttpServletRequest request);
 
     Center getById(Integer centerId);
 
-    String updateCenter(Center center);
+    String updateCenter(Center center, HttpServletRequest request);
 
     String deleteCenter(Integer centerId, HttpServletRequest request);
 }

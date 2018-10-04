@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserService {
     String newUser(User user);
 
-    List<User> queryAll();
+    List<User> queryAll(HttpServletRequest request);
 
     User getById(Integer userId);
 

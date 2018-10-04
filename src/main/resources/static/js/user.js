@@ -19,6 +19,23 @@ function userLogin() {
     });
 }
 
+function updateUser() {
+    $.ajax({
+        url: "/user/updateUser",
+        type: "post",
+        data: $("#form").serialize(),
+        success(data) {
+            if (data == "success") {
+                $("#alert").css('display', 'none');
+                alert("信息更新成功");
+                history.back(-1);
+            } else {
+                $("#alert").css('display', 'block');
+            }
+        }
+    });
+}
+
 function newUser() {
     $.ajax({
         url: "/user/newUser",
@@ -27,7 +44,6 @@ function newUser() {
         success(data) {
             if (data == "success") {
                 $("#alert").css('display', 'none');
-                // TODO 注册成功后的跳转
                 alert("注册成功");
                 window.location.href = "/user/toLogin";
             } else {

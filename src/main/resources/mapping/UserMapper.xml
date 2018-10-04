@@ -136,4 +136,7 @@
         where phone = #{phone,jdbcType=VARCHAR}
         and password=#{password,jdbcType=VARCHAR};
     </select>
+    <select id="getFiveUser" resultMap="BaseResultMap">
+        select * from user ORDER BY RAND() LIMIT 5;
+    </select>
 </mapper>

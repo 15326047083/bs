@@ -1,10 +1,13 @@
 package com.leiyuan.bs.service.impl;
 
 import com.leiyuan.bs.entity.Apply;
+import com.leiyuan.bs.entity.Recruitment;
 import com.leiyuan.bs.entity.User;
 import com.leiyuan.bs.mapper.ApplyMapper;
 import com.leiyuan.bs.mapper.RecruitmentMapper;
+import com.leiyuan.bs.mapper.UserMapper;
 import com.leiyuan.bs.service.ApplyService;
+import com.leiyuan.bs.util.EmailUtil;
 import com.leiyuan.bs.vo.MyApplyVo;
 import com.leiyuan.bs.vo.ReApplyVo;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
@@ -21,6 +24,8 @@ public class ApplyServiceImpl implements ApplyService {
     private ApplyMapper applyMapper;
     @Autowired
     private RecruitmentMapper recruitmentMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public String apply(Integer reId, HttpServletRequest request) {
@@ -41,7 +46,12 @@ public class ApplyServiceImpl implements ApplyService {
         apply.setReId(reId);
         apply.setUserId(user.getId());
         applyMapper.insert(apply);
-        // TODO 申请成功后根据岗位ID获取岗位信息，查询岗位发布者给发布者发送电子邮件提醒
+        Recruitment recruitment = recruitmentMapper.selectByPrimaryKey(reId);
+        // TODO 更改登陆连接地址
+        String info = "用户:" + user.getName() + "，申请了你发布的岗位，请及时<a href='http://localhost:8080/user/toLogin'>点此登陆</a>查看！";
+        User reUser = userMapper.selectByPrimaryKey(recruitment.getUserId());
+        // 发送邮件给岗位发布者
+        EmailUtil.sample(reUser.getEmail(), info);
         return "success";
     }
 

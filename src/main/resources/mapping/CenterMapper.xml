@@ -80,6 +80,9 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
     <select id="queryAll" resultMap="BaseResultMap">
+    select * from center where state=#{type};
+  </select>
+    <select id="getAllList" resultMap="BaseResultMap">
     select * from center;
   </select>
 </mapper>

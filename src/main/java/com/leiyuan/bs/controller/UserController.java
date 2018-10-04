@@ -117,8 +117,8 @@ public class UserController {
      * @return 用户管理页面（获取所有用户列表）
      */
     @RequestMapping("/toUserList")
-    public String toUserList(Model model) {
-        model.addAttribute("userList", userService.queryAll());
+    public String toUserList(Model model,HttpServletRequest request) {
+        model.addAttribute("userList", userService.queryAll(request));
         return "user/list";
     }
 }

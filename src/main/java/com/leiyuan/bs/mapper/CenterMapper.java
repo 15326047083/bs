@@ -1,6 +1,7 @@
 package com.leiyuan.bs.mapper;
 
 import com.leiyuan.bs.entity.Center;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface CenterMapper {
 
     int updateByPrimaryKey(Center record);
 
-    List<Center> queryAll(Integer type);
+    List<Center> queryAll(@Param("type") Integer type);
+
+    List<Center> getAllList();
 }

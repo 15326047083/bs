@@ -50,8 +50,8 @@ public class CenterController {
      */
     @ResponseBody
     @RequestMapping(value = "/newCenter", method = RequestMethod.POST)
-    public String newCenter(Center center) {
-        return centerService.newCenter(center);
+    public String newCenter(Center center, HttpServletRequest request) {
+        return centerService.newCenter(center, request);
     }
 
     /**
@@ -75,8 +75,8 @@ public class CenterController {
      */
     @ResponseBody
     @RequestMapping(value = "/updateCenter", method = RequestMethod.POST)
-    public String updateCenter(Center center) {
-        return centerService.updateCenter(center);
+    public String updateCenter(Center center, HttpServletRequest request) {
+        return centerService.updateCenter(center, request);
     }
 
     /**
@@ -88,7 +88,7 @@ public class CenterController {
     @ResponseBody
     @RequestMapping("/deleteCenter/{centerId}")
     public String deleteCenter(@PathVariable("centerId") Integer centerId, HttpServletRequest request) {
-        return centerService.deleteCenter(centerId,request);
+        return centerService.deleteCenter(centerId, request);
     }
 
 }

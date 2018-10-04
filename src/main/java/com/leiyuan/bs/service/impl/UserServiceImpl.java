@@ -3,6 +3,8 @@ package com.leiyuan.bs.service.impl;
 import com.leiyuan.bs.entity.User;
 import com.leiyuan.bs.mapper.UserMapper;
 import com.leiyuan.bs.service.UserService;
+import com.leiyuan.bs.util.EmailUtil;
+import com.leiyuan.bs.util.MD5;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +21,27 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String newUser(User user) {
+        String password = user.getPassword();
+        if (user.getPassword().length() < 6)
+            return "error";
+        else
+            user.setPassword(MD5.md5(user.getPassword()));
         if (verifyUserInfo(user)) return "error";
+        else if (userMapper.countPhone(user.getPhone()) != 0)
+            return "error";
         userMapper.insert(user);
+        String info = "登录名/手机号:" + user.getPhone() + "  密码：" + password;
+        EmailUtil.sample(user.getEmail(), info);
         return "success";
     }
 
     @Override
-    public List<User> queryAll() {
+    public List<User> queryAll(HttpServletRequest request) {
+        User userSession = (User) request.getSession().getAttribute("userSession");
+        if (userSession == null)
+            return null;
+        else if (userSession.getState() != -1)
+            return null;
         return userMapper.queryAll();
     }
 
@@ -36,8 +52,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String updateUser(User user) {
+        String password = user.getPassword();
+        if (user.getPassword().length() < 6)
+            return "error";
+        else
+            user.setPassword(MD5.md5(user.getPassword()));
         if (verifyUserInfo(user)) return "error";
         userMapper.updateByPrimaryKeySelective(user);
+        String info = "登录名/手机号:" + user.getPhone() + "  密码：" + password;
+        EmailUtil.sample(user.getEmail(), info);
         return "success";
     }
 
@@ -59,8 +82,6 @@ public class UserServiceImpl implements UserService {
         else if ("".equals(user.getPhone()) || user.getPhone().length() != 11)
             return true;
         else if (user.getAge() == null || user.getAge() < 0 || user.getAge() > 50)
-            return true;
-        else if (userMapper.countPhone(user.getPhone()) != 0)
             return true;
         else if (!isMatched)
             return true;
@@ -84,6 +105,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public String login(User user, HttpServletRequest request) {
+        user.setPassword(MD5.md5(user.getPassword()));
         if (user.getPhone().length() != 11)
             return "error";
         else if (user.getPassword().length() < 6)

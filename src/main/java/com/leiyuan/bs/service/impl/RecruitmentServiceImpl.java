@@ -5,7 +5,9 @@ import com.leiyuan.bs.entity.Recruitment;
 import com.leiyuan.bs.entity.User;
 import com.leiyuan.bs.mapper.ApplyMapper;
 import com.leiyuan.bs.mapper.RecruitmentMapper;
+import com.leiyuan.bs.mapper.UserMapper;
 import com.leiyuan.bs.service.RecruitmentService;
+import com.leiyuan.bs.util.EmailUtil;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class RecruitmentServiceImpl implements RecruitmentService {
     private RecruitmentMapper recruitmentMapper;
     @Autowired
     private ApplyMapper applyMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     @Override
     public String newRecruitment(Recruitment recruitment, HttpServletRequest request) {
@@ -30,7 +34,11 @@ public class RecruitmentServiceImpl implements RecruitmentService {
         recruitment.setUserId(userSession.getId());
         recruitment.setState(0);
         recruitmentMapper.insert(recruitment);
-        // TODO 岗位发布后，随机从user表中获取5名用户推荐岗位
+        List<User> users = userMapper.getFiveUser();
+        for (User u : users) {
+            String info = "有适合你的岗位发布了，快上去看看吧！<a href=''>点此查看</a>";
+            EmailUtil.sample(u.getEmail(), info);
+        }
         return "success";
     }
 
