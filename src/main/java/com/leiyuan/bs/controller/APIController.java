@@ -2,7 +2,9 @@ package com.leiyuan.bs.controller;
 
 import com.leiyuan.bs.util.APIUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -27,5 +29,16 @@ public class APIController {
     @ResponseBody
     public String getTenNews() {
         return APIUtil.news();
+    }
+
+    @RequestMapping("/toWeather")
+    public String toWeather(){
+        return "api/weather";
+    }
+
+    @RequestMapping("/getWeather")
+    @ResponseBody
+    public String getWeather(@RequestParam(value = "name",defaultValue = "北京") String name){
+        return APIUtil.weather(name);
     }
 }
