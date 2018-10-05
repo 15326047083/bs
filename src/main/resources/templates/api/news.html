@@ -13,6 +13,15 @@
 <body class="body">
 
 <div class="layui-row layui-col-space10 my-index-main" align="center" id="main">
+    <div class="layui-col-xs12 layui-col-sm6 layui-col-md6">
+        <div class="layui-collapse">
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">历史上的今天</h2>
+                <div class="layui-colla-content layui-show" id="history">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script type="text/javascript" src="/frame/layui/layui.js"></script>
@@ -20,6 +29,7 @@
 <script type="text/javascript" src="/js/news.js"></script>
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
+    window.onload = getHistoryToday();
     window.onload = getNews();
     layui.use(['element', 'form', 'table', 'layer', 'vip_tab'], function () {
         var form = layui.form

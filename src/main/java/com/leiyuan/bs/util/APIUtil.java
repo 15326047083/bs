@@ -21,7 +21,7 @@ public class APIUtil {
         Map<String, String> querys = new HashMap<String, String>();
         querys.put("cityname", name);
         querys.put("dtype", "json");
-        querys.put("format", "1");
+        querys.put("format", "2");
         try {
             HttpResponse response = HttpUtils.doGet(host, path, method, headers, querys);
             //获取response的body

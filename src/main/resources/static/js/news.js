@@ -17,3 +17,19 @@ function getNews() {
         }
     });
 }
+
+function getHistoryToday() {
+    $.ajax({
+        url: "/api/getHistoryToday",
+        type: "get",
+        dataType: "json",
+        success(data) {
+            for (var i = 0; i < data.showapi_res_body.list.length; i++) {
+                var src = "#";
+                if (data.showapi_res_body.list[i].img != null)
+                    src = data.showapi_res_body.list[i].img;
+                $("#history").append(data.showapi_res_body.list[i].year + "年<a href='" + src + "'>" + data.showapi_res_body.list[i].title + "</a><br/>");
+            }
+        }
+    });
+}

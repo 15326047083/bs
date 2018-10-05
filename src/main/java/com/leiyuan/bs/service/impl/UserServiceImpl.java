@@ -124,6 +124,6 @@ public class UserServiceImpl implements UserService {
         User userSession = (User) session.getAttribute("userSession");
         if (userSession != null)
             session.removeAttribute("userSession");
-        return "redirect:user/toLogin";
+        return "redirect:/user/toLogin";
     }
 }

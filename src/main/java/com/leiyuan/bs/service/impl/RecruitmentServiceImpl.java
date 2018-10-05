@@ -66,7 +66,7 @@ public class RecruitmentServiceImpl implements RecruitmentService {
      * @return true、false
      */
     private boolean verifyRE(Recruitment recruitment) {
-        if (recruitment.getTitle().length() > 30 || recruitment.getTitle().length() < 5)
+        if (recruitment.getTitle().length() > 30 || recruitment.getTitle().length() < 3)
             return true;
         else if (recruitment.getMoney() < 0)
             return true;

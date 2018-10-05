@@ -9,7 +9,7 @@ function userLogin() {
         success(data) {
             if (data == "success") {
                 $("#alert").css('display', 'none');
-                // TODO 登陆成功后的跳转
+                window.location.href = "/user/toIndex";
             } else {
                 $("#alert").css('display', 'block');
                 $("#phone").val("");

@@ -19,6 +19,16 @@ public class UserController {
     private UserService userService; // 自动注入UserService
 
     /**
+     * 跳转
+     *
+     * @return 主页
+     */
+    @RequestMapping("/toIndex")
+    public String toIndex() {
+        return "index";
+    }
+
+    /**
      * 登出方法
      *
      * @param request 需要获取session中的用户信息
@@ -76,13 +86,13 @@ public class UserController {
     /**
      * 跳转
      *
-     * @param model  向页面传递用户原始信息
-     * @param userId 用户ID
+     * @param model 向页面传递用户原始信息
      * @return 用户修改页面
      */
-    @RequestMapping("/toUpdateUser/{userId}")
-    public String toUpdateUser(Model model, @PathVariable("userId") Integer userId) {
-        model.addAttribute("user", userService.getById(userId));
+    @RequestMapping("/toUpdateUser")
+    public String toUpdateUser(Model model, HttpServletRequest request) {
+        User user = (User) request.getSession().getAttribute("userSession");
+        model.addAttribute("user", userService.getById(user.getId()));
         return "user/update";
     }
 
@@ -117,7 +127,7 @@ public class UserController {
      * @return 用户管理页面（获取所有用户列表）
      */
     @RequestMapping("/toUserList")
-    public String toUserList(Model model,HttpServletRequest request) {
+    public String toUserList(Model model, HttpServletRequest request) {
         model.addAttribute("userList", userService.queryAll(request));
         return "user/list";
     }

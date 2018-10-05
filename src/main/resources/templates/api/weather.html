@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Home</title>
+    <title>天气</title>
     <!-- For-Mobile-Apps -->
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="keywords" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content=""/>
     <script type="application/x-javascript">
-        addEventListener("load", function() {
+        addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
 
@@ -15,12 +15,9 @@
             window.scrollTo(0, 1);
         }
     </script>
-
-    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
-    <!-- Web-Fonts -->
-    <link href='http://fonts.useso.com/css?family=Oxygen:400,300,700' rel='stylesheet' type='text/css' />
-    <link href='http://fonts.useso.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css' />
-    <link href='http://fonts.useso.com/css?family=Raleway:100,200' rel='stylesheet' type='text/css' />
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script src="/js/weather.js"></script>
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all"/>
     <!-- //Web-Fonts -->
 
 </head>
@@ -36,9 +33,9 @@
 
     <!-- City -->
     <div class="city">
-        <div class="title">
+        <div class="title" id="title">
             <h2>中国</h2>
-            <h3>呼和浩特</h3>
+            <input placeholder="请输入你想查询的城市名称" type="text" id="city"/>
         </div>
         <div class="date-time">
             <div class="dmy">
@@ -46,24 +43,13 @@
                 <div class="date">
                     <!-- Date-JavaScript -->
                     <script type="text/javascript">
-                        var mydate = new Date()
-                        var year = mydate.getYear()
-                        if(year < 1000)
-                            year += 1900
-                        var day = mydate.getDay()
-                        var month = mydate.getMonth()
-                        var daym = mydate.getDate()
-                        if(daym < 10)
-                            daym = "0" + daym
-                        var dayarray = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
-                        var montharray = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
-                        document.write("" + dayarray[day] + ", " + montharray[month] + " " + daym + ", " + year + "")
+                        getDate();
                     </script>
                     <!-- //Date-JavaScript -->
                 </div>
             </div>
-            <div class="temperature">
-                <p>20°<span>C</span></p>
+            <div class="temperature" id="today">
+
             </div>
             <div class="clear"></div>
         </div>
@@ -73,16 +59,11 @@
     <!-- Forecast -->
     <div class="forecast">
         <div class="forecast-icon">
-            <img src="/images/forecast.png" alt="New York Weather Widget">
+            <img src="/images/forecast.png" alt="New York Weather Widget"/>
         </div>
-        <div class="today-weather">
-            <h3 id="todayWeather">Cloudy</h3>
+        <div class="today-weather" id="">
+            <h3 id="todayWeather"></h3>
             <ul id="ulAll">
-                <li>Now <span> 20°C</span></li>
-                <li>09:00 <span> 22°C</span></li>
-                <li>12:00 <span> 24°C</span></li>
-                <li>15:00 <span> 23°C</span></li>
-                <li>18:00 <span> 20°C</span></li>
             </ul>
         </div>
     </div>
@@ -95,24 +76,8 @@
 
 <!-- Time-JavaScript -->
 <script>
-    function startTime() {
-        var today = new Date();
-        var h = today.getHours();
-        var m = today.getMinutes();
-        var s = today.getSeconds();
-        m = checkTime(m);
-        s = checkTime(s);
-        document.getElementById('txt').innerHTML =
-            h + ":" + m + ":" + s;
-        var t = setTimeout(startTime, 500);
-    }
-
-    function checkTime(i) {
-        if(i < 10) {
-            i = "0" + i
-        }; // add zero in front of numbers < 10
-        return i;
-    }
+    startTime();
+    checkTime(i);
 </script>
 <!-- //Time-JavaScript -->
 
@@ -121,15 +86,6 @@
 </body>
 
 </html>
-<script type="text/javascript" src="/js/jquery.js"></script>
 <script>
-    window.onload = function() {
-
-        alert("ssss");
-        $.ajax({
-            url: "/api/getWeather",
-            type: "get",
-        })
-
-    }
+    window.onload = getWeather();
 </script>

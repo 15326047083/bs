@@ -31,14 +31,37 @@ public class APIController {
         return APIUtil.news();
     }
 
+    /**
+     * 获取历史上的今天
+     *
+     * @return json
+     */
+    @RequestMapping("/getHistoryToday")
+    @ResponseBody
+    public String getHistoryToday() {
+        return APIUtil.history();
+    }
+
+    /**
+     * 跳转
+     *
+     * @return 天气页面
+     */
     @RequestMapping("/toWeather")
-    public String toWeather(){
+    public String toWeather() {
         return "api/weather";
     }
 
+    /**
+     * 获取城市天气，默认北京
+     *
+     * @param name 城市名称
+     * @return 天气json
+     */
     @RequestMapping("/getWeather")
     @ResponseBody
-    public String getWeather(@RequestParam(value = "name",defaultValue = "北京") String name){
+    public String getWeather(@RequestParam(value = "name", defaultValue = "北京") String name) {
         return APIUtil.weather(name);
     }
+
 }
